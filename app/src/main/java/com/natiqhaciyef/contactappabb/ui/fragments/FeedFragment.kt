@@ -8,18 +8,29 @@ import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.natiqhaciyef.contactappabb.R
 import com.natiqhaciyef.contactappabb.data.model.Person
 import com.natiqhaciyef.contactappabb.databinding.FragmentFeedBinding
 import com.natiqhaciyef.contactappabb.databinding.FragmentSaveBinding
 import com.natiqhaciyef.contactappabb.ui.MainActivity
+import com.natiqhaciyef.contactappabb.ui.adapter.ContactAdapter
 
 class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var binding: FragmentFeedBinding
+    private var contactList = ArrayList<Person>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         binding = FragmentFeedBinding.inflate(inflater, container, false)
+
+        binding.recyclerContactView.layoutManager = LinearLayoutManager(requireContext())
+        contactList.add(Person(1,"Natiq","21231213"))
+        contactList.add(Person(2,"Sadiq","6590695"))
+        contactList.add(Person(3,"Raul","109845902938"))
+        val adapter = ContactAdapter(requireContext(), contactList)
+        binding.recyclerContactView.adapter = adapter
 
         binding.toolbar.title = "Contacts"
         (activity as MainActivity).setSupportActionBar(binding.toolbar)     // setting toolbar as main action bar
