@@ -9,7 +9,14 @@
         android:id="@+id/feedFragment"
         android:name="com.natiqhaciyef.contactappabb.ui.fragments.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/to_Save"
+            app:destination="@id/saveFragment" />
+        <action
+            android:id="@+id/to_Details"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/saveFragment"
         android:name="com.natiqhaciyef.contactappabb.ui.fragments.SaveFragment"
@@ -19,5 +26,9 @@
         android:id="@+id/detailsFragment"
         android:name="com.natiqhaciyef.contactappabb.ui.fragments.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="person"
+            app:argType="com.natiqhaciyef.contactappabb.data.model.Person" />
+    </fragment>
 </navigation>
