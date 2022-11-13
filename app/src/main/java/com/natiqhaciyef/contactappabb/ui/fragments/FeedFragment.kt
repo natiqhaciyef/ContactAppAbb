@@ -18,7 +18,12 @@ import com.natiqhaciyef.contactappabb.ui.adapter.ContactAdapter
 
 class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var binding: FragmentFeedBinding
-    private var contactList = ArrayList<Person>()
+    private var contactList = arrayListOf(
+        Person(1, "Natiq", "0553860054"),
+        Person(2, "Sadiq", "0553820054"),
+        Person(3, "Raul", "05594305452"),
+        Person(4, "Ramal", "0559969502")
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,9 +31,7 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
         binding = FragmentFeedBinding.inflate(inflater, container, false)
 
         binding.recyclerContactView.layoutManager = LinearLayoutManager(requireContext())
-        contactList.add(Person(1,"Natiq","21231213"))
-        contactList.add(Person(2,"Sadiq","6590695"))
-        contactList.add(Person(3,"Raul","109845902938"))
+//        binding.recyclerContactView.layoutManager = StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
         val adapter = ContactAdapter(requireContext(), contactList)
         binding.recyclerContactView.adapter = adapter
 
@@ -49,9 +52,7 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)     // menu adding toolbar
 
         binding.fab.setOnClickListener {
-//            Navigation.findNavController(it).navigate(R.id.to_Save)
-            val action = FeedFragmentDirections.toDetails(Person(1,"Sadiq","0553820054"))
-            Navigation.findNavController(it).navigate(action)
+            Navigation.findNavController(it).navigate(R.id.to_Save)
         }
 
         return binding.root
