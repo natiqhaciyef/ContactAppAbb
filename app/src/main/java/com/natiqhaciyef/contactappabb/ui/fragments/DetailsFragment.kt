@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.natiqhaciyef.contactappabb.R
 import com.natiqhaciyef.contactappabb.databinding.FragmentDetailsBinding
@@ -16,26 +16,18 @@ class DetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_details ,container, false)
 
-        binding.toolbar3.title = "Person details"
+        binding.toolbarTitle = "Person details"
 
         val data : DetailsFragmentArgs by navArgs()
-        val person = data.person
-
-        binding.nameTextDetails.setText(person.name)
-        binding.phoneTextDetails.setText(person.phone)
-
-        binding.updateButton.setOnClickListener {
-            val name = binding.nameTextDetails.text
-            val phone = binding.phoneTextDetails.text
-            updateData(person.id, name.toString(), phone.toString())
-        }
+        binding.person = data.person
+        binding.fragmentDetails = this
 
         return binding.root
     }
 
-    private fun updateData(id: Int, name: String, phone: String){
-        Log.e("Save Tag","$name $phone")
+    fun updateData(id: Int, name: String, phone: String){
+        Log.e("MyTag","$name $phone")
     }
 }

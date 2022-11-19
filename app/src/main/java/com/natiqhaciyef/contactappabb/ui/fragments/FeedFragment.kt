@@ -6,13 +6,13 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.natiqhaciyef.contactappabb.R
 import com.natiqhaciyef.contactappabb.data.model.Person
 import com.natiqhaciyef.contactappabb.databinding.FragmentFeedBinding
-import com.natiqhaciyef.contactappabb.databinding.FragmentSaveBinding
 import com.natiqhaciyef.contactappabb.ui.MainActivity
 import com.natiqhaciyef.contactappabb.ui.adapter.ContactAdapter
 
@@ -28,14 +28,13 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        binding = FragmentFeedBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_feed ,container, false)
+        binding.feedFragment = this
+        binding.toolbarTitle = "Contacts"
 
-        binding.recyclerContactView.layoutManager = LinearLayoutManager(requireContext())
-//        binding.recyclerContactView.layoutManager = StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
         val adapter = ContactAdapter(requireContext(), contactList)
-        binding.recyclerContactView.adapter = adapter
+        binding.adapter = adapter
 
-        binding.toolbar.title = "Contacts"
         (activity as MainActivity).setSupportActionBar(binding.toolbar)     // setting toolbar as main action bar
         requireActivity().addMenuProvider(object: MenuProvider{
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -51,11 +50,12 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)     // menu adding toolbar
 
-        binding.fab.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.to_Save)
-        }
 
         return binding.root
+    }
+
+    fun fabClick(view: View){
+        Navigation.findNavController(view).navigate(R.id.to_Save)
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
@@ -68,7 +68,7 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
         return true
     }
 
-    private fun search(keyword: String){
+    fun search(keyword: String){
         Log.e("MyTag","- $keyword")
     }
 }

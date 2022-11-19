@@ -3,9 +3,11 @@ package com.natiqhaciyef.contactappabb.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.natiqhaciyef.contactappabb.R
 import com.natiqhaciyef.contactappabb.data.model.Person
 import com.natiqhaciyef.contactappabb.databinding.RecyclerItemPersonBinding
 import com.natiqhaciyef.contactappabb.ui.fragments.FeedFragmentDirections
@@ -16,7 +18,8 @@ class ContactAdapter(var mContext: Context, private val list: List<Person>): Rec
     inner class ContactHolder(var binding: RecyclerItemPersonBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactHolder {
-        val binding = RecyclerItemPersonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: RecyclerItemPersonBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+            R.layout.recycler_item_person ,parent, false)
         return ContactHolder(binding)
     }
 
@@ -24,7 +27,8 @@ class ContactAdapter(var mContext: Context, private val list: List<Person>): Rec
         val person = list[position]
         val itemView = holder.binding
 
-        itemView.recyclerNameText.text = "${person.name} - ${person.phone}"
+        itemView.person = person
+//        itemView.recyclerNameText.text = "${person.name} - ${person.phone}"
         itemView.cardViewRecycler.setOnClickListener {
             val action = FeedFragmentDirections.toDetails(person = person)
             Navigation.findNavController(it).navigate(action)
