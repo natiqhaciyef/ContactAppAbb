@@ -68,7 +68,7 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
         return true
     }
 
-    fun search(keyword: String){
+    private fun search(keyword: String){
         Log.e("MyTag","- $keyword")
     }
 }
