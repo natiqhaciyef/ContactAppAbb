@@ -9,8 +9,8 @@ import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.natiqhaciyef.contactappabb.R
 import com.natiqhaciyef.contactappabb.data.model.Person
 import com.natiqhaciyef.contactappabb.databinding.FragmentFeedBinding
@@ -21,12 +21,7 @@ import com.natiqhaciyef.contactappabb.ui.viewmodel.FeedViewModel
 class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var binding: FragmentFeedBinding
     private lateinit var viewModel: FeedViewModel
-    private var contactList = arrayListOf(
-        Person(1, "Natiq", "0553860054"),
-        Person(2, "Sadiq", "0553820054"),
-        Person(3, "Raul", "05594305452"),
-        Person(4, "Ramal", "0559969502")
-    )
+    private var contactList = listOf<Person>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +30,12 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.feedFragment = this
         binding.toolbarTitle = "Contacts"
 
-        val adapter = ContactAdapter(requireContext(), contactList, viewModel)
-        binding.adapter = adapter
+        viewModel.personList.observe(viewLifecycleOwner, Observer {
+            contactList = it
+            val adapter = ContactAdapter(requireContext(), contactList, viewModel)
+            binding.adapter = adapter
+        })
+
 
         (activity as MainActivity).setSupportActionBar(binding.toolbar)     // setting toolbar as main action bar
         requireActivity().addMenuProvider(object: MenuProvider{
@@ -68,16 +67,17 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        search(query)
+        viewModel.search(query)
         return true
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
-        search(newText)
+        viewModel.search(newText)
         return true
     }
 
-    private fun search(keyword: String){
-        Log.e("MyTag","- $keyword")
+    override fun onResume() {
+        super.onResume()
+        // Return to HomeFragment
     }
 }
