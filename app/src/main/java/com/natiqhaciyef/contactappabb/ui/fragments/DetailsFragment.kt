@@ -12,7 +12,9 @@ import androidx.navigation.fragment.navArgs
 import com.natiqhaciyef.contactappabb.R
 import com.natiqhaciyef.contactappabb.databinding.FragmentDetailsBinding
 import com.natiqhaciyef.contactappabb.ui.viewmodel.DetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var viewModel: DetailsViewModel

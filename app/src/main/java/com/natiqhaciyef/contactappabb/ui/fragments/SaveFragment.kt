@@ -11,8 +11,9 @@ import androidx.fragment.app.viewModels
 import com.natiqhaciyef.contactappabb.R
 import com.natiqhaciyef.contactappabb.databinding.FragmentSaveBinding
 import com.natiqhaciyef.contactappabb.ui.viewmodel.SaveViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SaveFragment : Fragment() {
     private lateinit var binding: FragmentSaveBinding
     private lateinit var viewModel: SaveViewModel

@@ -18,7 +18,9 @@ import com.natiqhaciyef.contactappabb.ui.MainActivity
 import com.natiqhaciyef.contactappabb.ui.adapter.ContactAdapter
 import com.natiqhaciyef.contactappabb.ui.viewmodel.FeedViewModel
 import com.natiqhaciyef.contactappabb.util.go
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var binding: FragmentFeedBinding
     private lateinit var viewModel: FeedViewModel

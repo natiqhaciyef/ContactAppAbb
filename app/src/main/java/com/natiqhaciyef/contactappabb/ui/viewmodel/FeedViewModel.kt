@@ -4,12 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.natiqhaciyef.contactappabb.data.model.Person
 import com.natiqhaciyef.contactappabb.data.repository.PersonRepository
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FeedViewModel : ViewModel() {
-    private val p = PersonRepository()
+@HiltViewModel
+class FeedViewModel @Inject constructor(
+    val p: PersonRepository
+) : ViewModel() {
     val personList = MutableLiveData<List<Person>>()
 
     init {

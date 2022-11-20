@@ -1,9 +1,11 @@
 package com.natiqhaciyef.contactappabb.data.repository
 
 import com.natiqhaciyef.contactappabb.data.source.PersonDataSource
+import javax.inject.Inject
 
-class PersonRepository {
-    private val pds = PersonDataSource()
+class PersonRepository @Inject constructor(
+    var pds: PersonDataSource
+){
 
     suspend fun save(name: String, phone: String) = pds.save(name, phone)
 
