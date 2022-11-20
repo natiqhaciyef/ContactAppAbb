@@ -11,9 +11,11 @@ import com.natiqhaciyef.contactappabb.R
 import com.natiqhaciyef.contactappabb.data.model.Person
 import com.natiqhaciyef.contactappabb.databinding.RecyclerItemPersonBinding
 import com.natiqhaciyef.contactappabb.ui.fragments.FeedFragmentDirections
+import com.natiqhaciyef.contactappabb.ui.viewmodel.FeedViewModel
 
 
-class ContactAdapter(var mContext: Context, private val list: List<Person>): RecyclerView.Adapter<ContactAdapter.ContactHolder>() {
+class ContactAdapter(var mContext: Context, private val list: List<Person>,private val viewModel: FeedViewModel):
+    RecyclerView.Adapter<ContactAdapter.ContactHolder>() {
 
     inner class ContactHolder(var binding: RecyclerItemPersonBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -28,7 +30,6 @@ class ContactAdapter(var mContext: Context, private val list: List<Person>): Rec
         val itemView = holder.binding
 
         itemView.person = person
-//        itemView.recyclerNameText.text = "${person.name} - ${person.phone}"
         itemView.cardViewRecycler.setOnClickListener {
             val action = FeedFragmentDirections.toDetails(person = person)
             Navigation.findNavController(it).navigate(action)
@@ -46,7 +47,7 @@ class ContactAdapter(var mContext: Context, private val list: List<Person>): Rec
         return list.size
     }
 
-    fun deleteItem(id: Int){
-
+    private fun deleteItem(id: Int){
+        viewModel.deleteItem(id)
     }
 }

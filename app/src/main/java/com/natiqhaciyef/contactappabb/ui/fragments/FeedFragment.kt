@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,9 +16,11 @@ import com.natiqhaciyef.contactappabb.data.model.Person
 import com.natiqhaciyef.contactappabb.databinding.FragmentFeedBinding
 import com.natiqhaciyef.contactappabb.ui.MainActivity
 import com.natiqhaciyef.contactappabb.ui.adapter.ContactAdapter
+import com.natiqhaciyef.contactappabb.ui.viewmodel.FeedViewModel
 
 class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var binding: FragmentFeedBinding
+    private lateinit var viewModel: FeedViewModel
     private var contactList = arrayListOf(
         Person(1, "Natiq", "0553860054"),
         Person(2, "Sadiq", "0553820054"),
@@ -32,7 +35,7 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.feedFragment = this
         binding.toolbarTitle = "Contacts"
 
-        val adapter = ContactAdapter(requireContext(), contactList)
+        val adapter = ContactAdapter(requireContext(), contactList, viewModel)
         binding.adapter = adapter
 
         (activity as MainActivity).setSupportActionBar(binding.toolbar)     // setting toolbar as main action bar
@@ -52,6 +55,12 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
 
 
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val temp: FeedViewModel by viewModels()
+        viewModel = temp
     }
 
     fun fabClick(view: View){

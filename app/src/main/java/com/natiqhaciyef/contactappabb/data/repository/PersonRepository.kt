@@ -8,4 +8,6 @@ class PersonRepository {
     suspend fun save(name: String, phone: String) = pds.save(name, phone)
 
     suspend fun update(id: Int, name: String, phone: String) = pds.update(id, name, phone)
+
+    suspend fun deleteItem(id: Int) = pds.deleteItem(id)
 }
