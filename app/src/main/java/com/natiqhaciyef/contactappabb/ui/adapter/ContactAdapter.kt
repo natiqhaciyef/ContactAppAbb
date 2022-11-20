@@ -12,6 +12,7 @@ import com.natiqhaciyef.contactappabb.data.model.Person
 import com.natiqhaciyef.contactappabb.databinding.RecyclerItemPersonBinding
 import com.natiqhaciyef.contactappabb.ui.fragments.FeedFragmentDirections
 import com.natiqhaciyef.contactappabb.ui.viewmodel.FeedViewModel
+import com.natiqhaciyef.contactappabb.util.go
 
 
 class ContactAdapter(var mContext: Context, private val list: List<Person>,private val viewModel: FeedViewModel):
@@ -32,7 +33,7 @@ class ContactAdapter(var mContext: Context, private val list: List<Person>,priva
         itemView.person = person
         itemView.cardViewRecycler.setOnClickListener {
             val action = FeedFragmentDirections.toDetails(person = person)
-            Navigation.findNavController(it).navigate(action)
+            Navigation.go(it,action)
         }
 
         itemView.deleteImage.setOnClickListener {

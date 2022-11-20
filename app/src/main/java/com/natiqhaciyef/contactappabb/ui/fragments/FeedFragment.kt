@@ -17,6 +17,7 @@ import com.natiqhaciyef.contactappabb.databinding.FragmentFeedBinding
 import com.natiqhaciyef.contactappabb.ui.MainActivity
 import com.natiqhaciyef.contactappabb.ui.adapter.ContactAdapter
 import com.natiqhaciyef.contactappabb.ui.viewmodel.FeedViewModel
+import com.natiqhaciyef.contactappabb.util.go
 
 class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var binding: FragmentFeedBinding
@@ -63,7 +64,7 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     fun fabClick(view: View){
-        Navigation.findNavController(view).navigate(R.id.to_Save)
+        Navigation.go(view,R.id.saveFragment)
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
