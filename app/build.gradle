@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace 'com.natiqhaciyef.contactappabb'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.natiqhaciyef.contactappabb"
         minSdk 27
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -34,7 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
         dataBinding true
     }
@@ -66,4 +66,11 @@ dependencies {
     //Dagger Hilt
     implementation "com.google.dagger:hilt-android:2.42"
     kapt "com.google.dagger:hilt-android-compiler:2.42"
+
+    //Room db
+    implementation "androidx.room:room-runtime:2.5.0-beta02"
+    kapt "androidx.room:room-compiler:2.5.0-beta02"
+    //Coroutine
+    implementation "androidx.room:room-ktx:2.4.3"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
 }
