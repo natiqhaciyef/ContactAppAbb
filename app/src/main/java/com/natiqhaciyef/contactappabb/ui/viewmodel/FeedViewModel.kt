@@ -24,10 +24,11 @@ class FeedViewModel @Inject constructor(
     fun deleteItem(id: Int){
         CoroutineScope(Dispatchers.Main).launch {
             p.deleteItem(id)
+            loadPerson()
         }
     }
 
-    private fun loadPerson(){
+    fun loadPerson(){
         CoroutineScope(Dispatchers.Main).launch {
             personList.value = p.loadPerson()
         }

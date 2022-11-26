@@ -82,5 +82,6 @@ class FeedFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onResume() {
         super.onResume()
         // Return to HomeFragment
+        viewModel.loadPerson()
     }
 }

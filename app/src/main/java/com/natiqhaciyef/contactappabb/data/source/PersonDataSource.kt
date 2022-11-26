@@ -9,22 +9,25 @@ import javax.inject.Inject
 
 class PersonDataSource @Inject constructor(var dao: ContactDao) {
     suspend fun save(name: String, phone: String) {
-        Log.e("MyTag", "$name - $phone saved")
+        val person = Person(0,name,phone)
+        dao.saveData(person)
     }
 
     suspend fun update(id: Int, name: String, phone: String) {
-        Log.e("MyTag", "$name $phone updated")
+        val person = Person(id, name, phone)
+        dao.updateData(person)
     }
 
     suspend fun deleteItem(id: Int) {
-        Log.e("MyTag", "Delete $id person")
+        val person = Person(id,"","")
+        dao.deleteData(person)
     }
 
     suspend fun loadPerson(): List<Person> = withContext(Dispatchers.IO){
         dao.loadPersonFromDb()
     }
 
-    suspend fun search(text: String): List<Person> = withContext(Dispatchers.IO) {
-        return@withContext arrayListOf(Person(1, "Natiq", "0553860054"))
+    suspend fun search(text: String): List<Person> = withContext(Dispatchers.IO){
+        dao.search(text)
     }
 }
